@@ -8,7 +8,16 @@ Slides: http://slides.com/mlareaktor/cuic
 
 ### Quickstart
 
+Pre-requirements:
+
+* `Java 8+`
+* `docker`
+* `docker-compose`
+
 ```bash
+# start database
+docker-compose up -d
+
 # run tests
 ./lein t 
 # start repl and app in port 5001
