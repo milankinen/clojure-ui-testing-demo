@@ -14,11 +14,13 @@
   {:todos [SavedTodo]})
 
 (defn load-todos [ctx]
-  [])
+  (let [db (:db ctx)]
+    (sql/query db ["SELECT * FROM todo"])))
 
 (defn save-todos! [ctx todos]
-  (println "SAVE!")
-  (clojure.pprint/pprint todos))
+  (db/with-tx [tx (:db ctx)]
+    (sql/execute! tx ["DELETE FROM todo"])
+    (sql/insert-multi! tx :todo todos)))
 
 (defn api-routes [ctx]
   (routes
