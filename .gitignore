@@ -1,0 +1,9 @@
+.DS_Store
+*.iml
+.vscode
+target
+*.log
+.idea
+.lein-*
+.nrepl-*
+/ui/node_modules
