@@ -16,7 +16,8 @@
    [net.postgis/postgis-jdbc "2.3.0"
     :exclusions [org.postgresql/postgresql]]
    [com.mchange/c3p0 "0.9.5.2"]
-   [cheshire "5.8.1"]]
+   [cheshire "5.8.1"]
+   [cuic "0.4.2"]]
   :plugins
   [[lein-ancient "0.6.15"]]
   :main ^:skip-aot tunk.main
@@ -24,7 +25,8 @@
   :source-paths ["src"]
   :resource-paths ["resources" "ui/dist"]
   :target-path "target/%s"
-  :profiles {:dev     {:jvm-opts ["-Ddev=1"]
+  :profiles {:dev     {:jvm-opts     ["-Ddev=1"]
                        :source-paths ["dev/src"]}
+             :test    {:jvm-opts ["-Dtest=1" "-Dlogback.configurationFile=resources/logback-error-only.xml"]}
              :uberjar {:aot :all}}
   :aliases {"t" ["test"]})
