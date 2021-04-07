@@ -13,7 +13,7 @@
             (first $))
       (throw (IllegalStateException. "currentSchema not set to database uri"))))
 
-(defn connect! [conn-uri]
+(defn connect [conn-uri]
   (let [ds (doto (ComboPooledDataSource.)
              (.setUnreturnedConnectionTimeout 1000)
              (.setDriverClass "org.postgresql.Driver")
@@ -27,11 +27,11 @@
     {:datasource ds
      :conn-uri   conn-uri}))
 
-(defn disconnect! [{:keys [datasource]}]
+(defn disconnect [{:keys [datasource]}]
   (.close datasource)
   (info "Disconnected from database!"))
 
-(defn migrate! [{:keys [datasource conn-uri]}]
+(defn migrate [{:keys [datasource conn-uri]}]
   (let [flyway (-> (Flyway/configure)
                    (.dataSource datasource)
                    (.schemas (into-array String [(uri->db-schema conn-uri)]))

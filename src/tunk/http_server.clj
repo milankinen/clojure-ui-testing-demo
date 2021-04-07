@@ -1,4 +1,3 @@
-(ns tunk.http-server)
 (ns tunk.http-server
   (:require [clojure.tools.logging :refer [info]]
             [clojure.java.io :as io]
@@ -6,7 +5,7 @@
             [compojure.core :refer [GET routes]]
             [compojure.route :refer [not-found resources]]
             [compojure.api.sweet :refer [api context]]
-            [tunk.api :as api]
+            [tunk.app :as api]
             [tunk.config :as c])
   (:import (java.io Closeable)))
 
@@ -39,7 +38,7 @@
   (close [_]
     (shutdown!)))
 
-(defn start! [ctx port]
+(defn start [ctx port]
   (let [stop-server (run-server (handler ctx) {:port port :worker-name-prefix "http-"})
         shutdown!   (fn stop-server! []
                       (stop-server :timeout 5000)
